@@ -2,8 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 import CodeBlock from "@/components/ui/CodeBlock";
+import SplitText from "@/components/title/SplitText";
+import ShinyText from "@/components/title/ShinyText";
 
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -32,20 +33,34 @@ console.log(hello);`;
         ></video>
         <div className="relative z-10 flex flex-col justify-center min-h-screen px-[10vw]">
           <div className="w-full flex flex-row justify-between items-center space-x-4">
-            <h1 className="text-white text-8xl font-bold antialiased font-['Ubuntu']">
+            <SplitText
+              text="Powerful for developers. Fast for everyone."
+              className="text-8xl font-semibold text-white"
+              delay={50}
+              animationFrom={{ opacity: 0, transform: 'translate3d(0,50px,0)' }}
+              animationTo={{ opacity: 1, transform: 'translate3d(0,0,0)' }}
+              easing="easeOutCubic"
+              threshold={0.0}
+              rootMargin=""
+              textAlign="left"
+              // onLetterAnimationComplete={handleAnimationComplete}
+            />
+            
+            {/* <h1 className="text-white text-8xl font-bold antialiased font-['Ubuntu']">
+
               Powerful for <br />developers. <br />Fast for <br />everyone.
-            </h1>
+            </h1> */}
             <div className="flex items-center justify-center p-6">
               <CodeBlock code={sampleCode} language="javascript" />
+              {/* <Image src="globe.svg" width={500} height={500} alt="Globe image" className="flex flex-grow h-80" /> */}
             </div>
-            {/* <Image src="globe.svg" width={500} height={500} alt="Globe image" className="flex flex-grow h-80" /> */}
           </div>
           <div className="flex flex-row items-center space-x-4 mt-10 text-white text-opacity-80">
             <Button 
               className="
                 text-xl uppercase
-                bg-gradient-to-r from-indigo-400 to-indigo-900
-                hover:scale-105
+                bg-gradient-to-r from-indigo-500 to-indigo-900
+                hover:scale-105 hover:bg-gradient-to-r hover:from-indigo-800 hover:to-indigo-200
                 transition-all duration-400 ease-in-out 
                 rounded-full px-10 py-7
                 font-['Ubuntu']
@@ -56,7 +71,7 @@ console.log(hello);`;
               className="
               text-xl uppercase
               bg-transparent
-              hover:bg-opacity-100
+              hover:bg-opacity-100 hover:bg-white hover:text-indigo-900 hover:scale-105
               border border-white
               transition-all duration-300 ease-in-out
               rounded-full px-10 py-7
@@ -67,12 +82,13 @@ console.log(hello);`;
           </div>
           <div className="
             mt-9 
-            text-2xl
-            font-['Ubuntu'] 
-            text-white 
-            text-opacity-80
             ">
-            Building & shipping Web3 applications have never been easier.
+            <ShinyText 
+              text="Building & shipping Web3 applications have never been easier." 
+              disabled={false} 
+              speed={4} 
+              className="text-white text-opacity-50 text-2xl font-['Ubuntu']" 
+            />
           </div>
         </div>
       </div>
