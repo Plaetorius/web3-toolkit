@@ -1,18 +1,29 @@
 'use client';
 
 import { Button } from "@/components/ui/button";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import CodeBlock from "@/components/ui/CodeBlock";
 import SplitText from "@/components/title/SplitText";
 import ShinyText from "@/components/title/ShinyText";
+import { Upload } from "lucide-react";
+import { choosePhotos } from "@/lib/handlePhotos";
 
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [diagnostic, setDiagnostic] = useState<string | null>(null);
 
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.playbackRate = 1;
     }
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDiagnostic("Your results have been processed. Please check the results tab.");
+    }, 5000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const sampleCode = `const hello = "Hello, World!";
@@ -84,7 +95,7 @@ console.log(hello);`;
             mt-9 
             ">
             <ShinyText 
-              text="Building & shipping Web3 applications have never been easier." 
+              text="Building & shipping Web3 applications has never been easier." 
               disabled={false} 
               speed={4} 
               className="text-white text-opacity-50 text-2xl font-['Ubuntu']" 
@@ -92,8 +103,47 @@ console.log(hello);`;
           </div>
         </div>
       </div>
-      <div className="h-screen w-full bg-red-500 flex justify-center items-center">
-        Welcome to my second section
+      <div className="h-screen w-full bg-slate-900">
+        <div className="flex items-center justify-center h-[20vh] w-full text-white text-6xl font-bold font-['Ubuntu'] bg-slate-950">
+          Examination
+        </div>
+        <div className="p-4 grid grid-cols-2 gap-4 flex justify-center items-center h-[80vh] w-full bg-slate-900">
+          <div className="flex flex-col justify-center items-center w-full h-full">
+            <Button 
+              className="
+              text-white 
+              flex flex-col justify-center items-center 
+              bg-transparent
+              h-[50%] w-[50%] 
+              rounded-2xl 
+              border border-8 border-dashed border-white
+              hover:scale-105
+              transition-all duration-300 ease-in-out
+              "
+              onClick={choosePhotos}
+              >
+              <div className="flex flex-row items-center gap-4 text-2xl h-full font-['Ubuntu']">
+                <Upload size={150} strokeWidth={2} style={{ width: '40px', height: '40px' }} />
+                Upload
+              </div>
+            </Button>
+          </div>
+          <div className="flex flex-col p-8 text-white bg-red-500 h-full">
+            <h3 className="text-4xl font-bold font-['Ubuntu']">
+              Results
+            </h3>
+            {diagnostic 
+              ? 
+                <div>
+                  {diagnostic}
+                </div>
+              :
+                <div>
+                  Your results will appear here shortly...
+                </div>
+              }
+          </div>
+        </div>
       </div>
     </div>
   );
